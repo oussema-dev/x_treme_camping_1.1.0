@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>X-treme Camping</title>
+    <link rel="shortcut icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/notifications.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
+    <script type="text/javascript" src="/javascript/jquery-2.1.4.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-tent"></span> X-treme Camping</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="<%= typeof page !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>"><a
+                            href="/campgrounds"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <% if(!currentUser){ %>
+                    <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a
+                            href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a
+                            href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a></li>
+                    <% } else { %>
+                    <li class="dropdown <%= typeof page !== 'undefined' && page === 'notifications' ? 'active' : '' %>">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">Notifications <span
+                                class="badge"><%= notifications.length %></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/notifications">View all notifications</a>
+                            </li>
+                            <% notifications.forEach(function(notification) { %>
+                            <li>
+                                <a href="/notifications/<%= notification._id %>">
+                                    <%= notification.username %> created a new campground
+                                </a>
+                            </li>
+                            <% }); %>
+                        </ul>
+                    </li>
+                    <li class="<%= typeof page !== 'undefined' && page === 'show' ? 'active' : '' %>">
+                        <a href="/users/<%= currentUser._id %>"><span class="glyphicon glyphicon-user"></span> Signed In
+                            As <%= currentUser.username %></a>
+                    </li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <% if(error && error.length > 0) { %>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p><span><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span> <%= error %></p>
+        </div>
+        <% } %>
+        <% if(success && success.length > 0) { %>
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p><span><i class="fa fa-check" aria-hidden="true"></i></span> <%= success %></p>
+        </div>
+        <% } %>
+    </div>
+    <div class="container">

@@ -1,0 +1,32 @@
+{
+	"name": "x_treme_camping",
+	"version": "1.1.0",
+	"description": "##Add session persistance",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node app.js"
+	},
+	"author": "oussema",
+	"license": "ISC",
+	"dependencies": {
+		"async": "^3.1.0",
+		"body-parser": "^1.19.0",
+		"cloudinary": "^1.14.0",
+		"connect-flash": "^0.1.1",
+		"connect-mongo": "^3.0.0",
+		"ejs": "^2.6.2",
+		"express": "^4.17.1",
+		"express-session": "^1.16.2",
+		"method-override": "^3.0.0",
+		"moment": "^2.24.0",
+		"mongoose": "^5.6.7",
+		"mongoose-unique-validator": "^2.0.3",
+		"multer": "^1.4.2",
+		"node-open-geocoder": "^3.0.0",
+		"nodemailer": "^6.3.0",
+		"passport": "^0.4.0",
+		"passport-local": "^1.0.0",
+		"passport-local-mongoose": "^5.0.1"
+	}
+}

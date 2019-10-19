@@ -1,0 +1,17 @@
+<% include ./partials/header %>
+
+<div class="row">
+    <h1 style="text-align: center">Forgot Password</h1>
+    <div class="centered-form">
+        <form action="/forgot" method="POST">
+            <div class="form-group">
+                <input type="email" name="email" class="form-control" placeholder="Enter your Email address" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Reset Password">
+            </div>
+        </form>
+    </div>
+</div>
+
+<% include ./partials/footer %>

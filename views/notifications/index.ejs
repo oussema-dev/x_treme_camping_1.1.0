@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+
+<% if(allNotifications.length === 0){ %>
+<h1 style="text-align: center">You don't have any notifications</h1>
+<% } else { %>
+<h1 style="text-align: center">All notifications</h1>
+<div id="container">
+    <ul>
+        <% allNotifications.forEach(function(notification) { %>
+        <li>
+            <form name="myform" action="/notifications/<%= notification._id %>?_method=DELETE" method="post">
+                <span><i class="fa fa-trash"></i></span>
+            </form>
+            <a href="/notifications/<%= notification._id %>">
+                <%= notification.username %> created a new campground %>
+            </a>
+        </li>
+        <% }); %>
+    </ul>
+</div>
+<% } %>
+
+<% include ../partials/footer %>

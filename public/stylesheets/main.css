@@ -1,0 +1,78 @@
+.thumbnail img {
+	width: 100%;
+}
+.thumbnail {
+	padding: 0;
+}
+.thumbnail .caption-full {
+	padding: 9px;
+}
+.delete-form {
+	display: inline;
+}
+#map {
+	height: 400px;
+	width: 100%;
+	margin-bottom: 20px;
+}
+.leaflet-left {
+	right: 0;
+}
+.leaflet-left .leaflet-control {
+	float: right;
+}
+.leaflet-left .leaflet-control {
+	margin-right: 10px;
+}
+html {
+	height: 100%;
+}
+body {
+	min-height: 100%;
+	padding: 0;
+	margin: 0;
+	padding-bottom: 100px;
+	position: relative;
+}
+body::after {
+	content: '';
+	display: block;
+	height: 100px;
+}
+footer {
+	padding: 20px;
+	background-color: #e8e8e8;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 180px;
+}
+.footer a:link {
+	text-decoration: none;
+	color: #666;
+}
+.footer a:visited {
+	text-decoration: none;
+	color: #666;
+}
+.centered-form {
+	width: 320px;
+	margin: auto;
+}
+.campground-form {
+	width: 320px;
+	margin: auto;
+}
+.no-overflow {
+	width: 100%;
+	word-wrap: break-word;
+}
+.search-form {
+	width: 190px;
+}
+.checked {
+	color: orange;
+}
+.black {
+	color: black;
+}

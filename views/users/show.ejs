@@ -1,0 +1,110 @@
+<% include ../partials/header %>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="thumbnail">
+            <img src="<%= user.profilePicture %>">
+        </div>
+        <div class="text-center">
+            <h4><%= user.firstName + " " + user.lastName %></h4>
+        </div>
+        <div style="text-align: center">
+            <% if(showFollowBtn){ %>
+            <a href="/follow/<%= user._id %>"><button class="btn btn-sm btn-success">Follow
+                    <%= user.username %></button></a>
+            <% } %>
+            <% if(showUnfollowBtn){ %>
+            <a href="/unfollow/<%= user._id %>"><button class="btn btn-sm btn-info">Unfollow
+                    <%= user.username %></button></a>
+            <% } %>
+        </div>
+        <% if(currentUser && currentUser._id.equals(user._id)){ %>
+        <br>
+        <div style="text-align: center">
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editPicture">
+                <span class="glyphicon glyphicon-edit"></span> Edit profile picture
+            </button>
+        </div>
+        <% } %>
+    </div>
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1"></div>
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <% if(campgrounds.length > 0){ %>
+                <h3 style="text-align: center"><%= user.username %>'s campgrounds</h3>
+                <div class="full-list">
+                    <ul>
+                        <% campgrounds.forEach(function(campground) { %>
+                        <li><a href="/campgrounds/<%= campground._id %>"><%= campground.name %></a></li>
+                        <% }); %>
+                    </ul>
+                </div>
+                <% } else { %>
+                <h5 style="text-align: center">No campgrounds created yet</h5>
+                <% } %>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="row">
+                    <% if(currentUser && user._id.equals(currentUser._id)){ %>
+                    <% if(followers.length > 0){ %>
+                    <h3 style="text-align: center">Users who follow me</h3>
+                    <div class="full-list">
+                        <ul>
+                            <% followers.forEach(function(follower) { %>
+                            <li><a href="/users/<%= follower._id %>"><%= follower.username %></a></li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                    <% } else { %>
+                    <h5 style="text-align: center">You don't have any followers yet</h5>
+                    <% } %>
+                    <% } %>
+                </div>
+                <div class="row">
+                    <% if(currentUser && user._id.equals(currentUser._id)){ %>
+                    <% if(followings.length > 0){ %>
+                    <h3 style="text-align: center">Users i follow</h3>
+                    <div class="full-list">
+                        <ul>
+                            <% followings.forEach(function(following) { %>
+                            <li><a href="/users/<%= following._id %>"><%= following.username %></a></li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                    <% } else { %>
+                    <h5 style="text-align: center">You didn't follow anyone yet</h5>
+                    <% } %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% if(currentUser && currentUser._id.equals(user._id)){ %>
+<div id="editPicture" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit profile picture</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Enter the new profile picture URL</h4>
+                <form action="/users/<%= user._id %>?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <br>
+                        <input class="form-control" type="text" name="profilePicture"
+                            value="<%= user.profilePicture %>">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
+
+<% include ../partials/footer %>
