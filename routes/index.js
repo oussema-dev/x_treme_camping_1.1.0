@@ -4,8 +4,17 @@ var passport = require('passport');
 var User = require('../models/user');
 var async = require('async');
 var nodemailer = require('nodemailer');
+var { google } = require('googleapis');
+var OAuth2 = google.auth.OAuth2;
 var crypto = require('crypto');
 var middleware = require('../middleware');
+var oauth2Client = new OAuth2(
+	process.env.CLIENT_ID,
+	process.env.CLIENT_SECRET,
+	'https://developers.google.com/oauthplayground'
+);
+oauth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
+var accessToken = oauth2Client.getAccessToken();
 
 //root route
 router.get('/', function(req, res) {
@@ -79,11 +88,15 @@ router.post('/register', function(req, res) {
 					});
 				},
 				function(token, user, done) {
-					var Transport = nodemailer.createTransport({
-						service: 'Gmail',
+					var smtpTransport = nodemailer.createTransport({
+						service: 'gmail',
 						auth: {
+							type: 'OAuth2',
 							user: process.env.MAILADDR,
-							pass: process.env.MAILPWD
+							clientId: process.env.CLIENT_ID,
+							clientSecret: process.env.CLIENT_SECRET,
+							refreshToken: process.env.REFRESH_TOKEN,
+							accessToken: accessToken
 						}
 					});
 					var mailOptions = {
@@ -99,11 +112,12 @@ router.post('/register', function(req, res) {
 							token +
 							'\n\n'
 					};
-					Transport.sendMail(mailOptions, function(err) {
+					smtpTransport.sendMail(mailOptions, function(err) {
 						if (err) {
 							req.flash('error', 'Something went wrong');
 							return res.redirect('/register');
 						}
+						smtpTransport.close();
 						done(err, user.email, 'done');
 					});
 				}
