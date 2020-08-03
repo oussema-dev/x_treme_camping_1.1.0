@@ -10,18 +10,17 @@ Please reach out to me for app suggestions or if bugs are found.
 
 ## Features
 
-* Email verification
+* Email verification using Google OAuth2
 * User login with username and password
 * Session persistance
 * Password reset via email confirmation
-* Profile picture update
 * Follow / unfollow users
 * Notification system
 * Image upload
 * Ratings and likes
 * Fuzzy search
 * Geolocation
-* Flash messages responding to users
+* Flash messages
 * Responsive web design
 * Pagination
 * Authorization:

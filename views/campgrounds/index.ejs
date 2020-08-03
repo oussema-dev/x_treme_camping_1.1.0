@@ -1,4 +1,4 @@
-<% include ../partials/header %>
+<%- include ('../partials/header') %>
 
 <header class="jumbotron" style="padding: 10px">
     <div class="container">
@@ -8,13 +8,13 @@
                 Add New Campground</a>
         </p>
         <p>
-            <form class="form-inline search-form" action="/campgrounds" method="GET">
-                <div class="form-group has-feedback">
-                    <input class="form-control" type="text" name="search" placeholder="Search campgrounds..."
-                        autocomplete="off" />
-                    <span><i class="form-control-feedback fa fa-search" aria-hidden="true"></i></span>
-                </div>
-            </form>
+        <form class="form-inline search-form" action="/campgrounds" method="GET">
+            <div class="form-group has-feedback">
+                <input class="form-control" type="text" name="search" placeholder="Search campgrounds..."
+                    autocomplete="off" />
+                <span><i class="form-control-feedback fa fa-search" aria-hidden="true"></i></span>
+            </div>
+        </form>
         </p>
     </div>
 </header>
@@ -90,4 +90,4 @@
     <% } %>
 </div>
 
-<% include ../partials/footer %>
+<%- include ('../partials/footer') %>

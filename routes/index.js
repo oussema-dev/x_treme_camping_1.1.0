@@ -57,19 +57,14 @@ router.post('/register', function(req, res) {
 		username: req.body.username,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
-		email: req.body.email
+		email: req.body.email,
+		profilePicture: 'https://cnam.ca/wp-content/uploads/2018/06/default-profile.gif'
 	});
-	if (req.body.profilePicture === '') {
-		newUser.profilePicture = 'https://cnam.ca/wp-content/uploads/2018/06/default-profile.gif';
-	} else {
-		newUser.profilePicture = req.body.profilePicture;
-	}
 	User.register(newUser, req.body.password, function(err, user) {
 		if (err) {
 			return res.render('register', { error: err.message, page: 'register' });
 		}
 		async.waterfall(
-			//generate unique verification token and send email to the user
 			[
 				function(done) {
 					crypto.randomBytes(20, function(err, buf) {

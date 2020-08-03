@@ -1,4 +1,4 @@
-<% include ../partials/header %>
+<%- include ('../partials/header') %>
 
 <div class="row">
     <div class="col-md-8">
@@ -68,7 +68,7 @@
                     Current campground rating: <strong><%= campground.rating.toFixed(1) %></strong>
                 </p>
                 <p>
-                    <h4>Latest reviews for this campground:</h4>
+                <h4>Latest reviews for this campground:</h4>
                 </p>
                 <hr style="margin-top: 0;">
                 <% campground.reviews.slice(0, 3).forEach(function(review){ %>
@@ -282,4 +282,4 @@
         .bindPopup("<b><%= campground.location %></b>");
 </script>
 
-<% include ../partials/footer %>
+<%- include ('../partials/footer') %>

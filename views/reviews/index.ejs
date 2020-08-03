@@ -1,4 +1,4 @@
-<% include ../partials/header %>
+<%- include ('../partials/header') %>
 
 <div class="row">
     <div class="col-md-12">
@@ -22,7 +22,7 @@
                     Current campground rating: <strong><%= campground.rating.toFixed(1) %></strong>
                 </p>
                 <p>
-                    <h4>All reviews for this campground:</h4>
+                <h4>All reviews for this campground:</h4>
                 </p>
                 <hr style="margin-top: 0;">
                 <% campground.reviews.forEach(function(review){ %>
@@ -70,4 +70,4 @@
     </div>
 </div>
 
-<% include ../partials/footer %>
+<%- include ('../partials/footer') %>

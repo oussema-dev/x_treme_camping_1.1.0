@@ -7,15 +7,12 @@ var Notification = require('../models/notification');
 var middleware = require('../middleware');
 var multer = require('multer');
 
-//this variable is to create a custom name for each file we upload
 var storage = multer.diskStorage({
 	filename: function(req, file, callback) {
-		//adding a timestamp to the filename inorder to make it unique
 		callback(null, Date.now() + file.originalname);
 	}
 });
 
-//allow only image files to be uploaded using a regular expression
 var imageFilter = function(req, file, callback) {
 	if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
 		return callback(new Error('Only image files are allowed!'), false);
@@ -25,7 +22,6 @@ var imageFilter = function(req, file, callback) {
 
 var upload = multer({ storage: storage, limits: { fileSize: 5000000 }, fileFilter: imageFilter }).single('image');
 
-//middleware to check file to upload
 function imageUpload(req, res, next) {
 	upload(req, res, function(err) {
 		if (err instanceof multer.MulterError) {
@@ -132,14 +128,12 @@ router.post('/', middleware.isLoggedIn, imageUpload, function(req, res) {
 		req.flash('error', 'Campground description should not be empty');
 		return res.redirect('/campgrounds/new');
 	}
-	//geocode the location
 	openGeocoder().geocode(req.body.location).end((err, result) => {
 		if (err || result.length == 0) {
 			req.flash('error', 'Invalid Location');
 			return res.redirect('/campgrounds/new');
 		} else {
 			if (req.file) {
-				//upload to cloudinary
 				cloudinary.v2.uploader.upload(req.file.path, function(err, resultCloudinary) {
 					if (err) {
 						req.flash('error', 'Somethong went wrong');
@@ -159,7 +153,6 @@ router.post('/', middleware.isLoggedIn, imageUpload, function(req, res) {
 						lat: result[0].lat,
 						lon: result[0].lon
 					};
-					//add to database
 					Campground.create(newCampground, function(err, newlyCreated) {
 						if (err) {
 							req.flash('error', 'Something went wrong');
@@ -224,10 +217,8 @@ router.post('/:id/like', middleware.isLoggedIn, function(req, res) {
 			return like.equals(req.user._id);
 		});
 		if (foundUserLike) {
-			//user already liked, removing like
 			foundCampground.likes.pull(req.user._id);
 		} else {
-			//adding the new user like
 			foundCampground.likes.push(req.user._id);
 		}
 		foundCampground.save(function(err) {

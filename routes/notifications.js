@@ -21,7 +21,6 @@ router.get('/', middleware.isLoggedIn, async function(req, res) {
 	}
 });
 
-//click on the notification
 router.get('/:id', middleware.isLoggedIn, async function(req, res) {
 	try {
 		let notification = await Notification.findById(req.params.id);

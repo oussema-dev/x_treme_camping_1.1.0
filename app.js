@@ -21,7 +21,7 @@ var campgroundRoutes = require('./routes/campgrounds'),
 	userRoutes = require('./routes/users');
 
 var url = process.env.DATABASEURL;
-mongoose.connect(url, { useNewUrlParser: true });
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.set('useFindAndModify', false);
